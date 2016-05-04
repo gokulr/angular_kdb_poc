@@ -1,14 +1,36 @@
 var plotterApp = angular.module('plotterApp', ['chart.js']);
 
-plotterApp.controller('plotterCtrl', function ($scope, $http, plotterHelper){
+
+plotterApp.controller('pieChartCtrl', function ($scope, $http, plotterHelper){
 	var pctrl = this;
 	pctrl.resultData = [];
 	
 	$scope.onClick = function (points, evt) {
 		console.log(points, evt);
 	};
+
+	$scope.submit = function(){
+		buildParams='getSymVol[]';
+		$http.get( '/ipc?0!'+buildParams)
+			 .success(function(data, status){
+				$scope.resultData = deserialize(plotterHelper.getBuff(data));
+				$scope.labels = _.pluck($scope.resultData, 'sym');
+				$scope.data = _.pluck($scope.resultData, 'vol');
+			});
+	};	
+});
+
+
+plotterApp.controller('lineChartCtrl', function ($scope, $http, plotterHelper){
+	var pctrl = this;
+	pctrl.resultData = [];
+
+	$scope.onClick = function (points, evt) {
+		console.log(points, evt);
+	};
 	
 	$scope.submit = function(){
+
 		buildParams='getMinuteVwap[]';
 		$http({
 		  method: 'GET',
@@ -16,7 +38,7 @@ plotterApp.controller('plotterCtrl', function ($scope, $http, plotterHelper){
 		}).success(function(data, status){
 
 		$scope.resultData = deserialize(plotterHelper.getBuff(data));
-		
+
 		$scope.labels = _.pluck($scope.resultData, 'minute');
 		$scope.series = ['Vwap', 'AvgPrice'];
 		$scope.data = [_.pluck($scope.resultData, 'vwap'),_.pluck($scope.resultData, 'avg_px')];
@@ -25,7 +47,8 @@ plotterApp.controller('plotterCtrl', function ($scope, $http, plotterHelper){
 		});
 	};	
 });
-	
+
+
 plotterApp.factory('plotterHelper', function(){
     function ipcstr2arraybuffer(str){
       var buffer = new ArrayBuffer(str.length/2);
