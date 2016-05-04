@@ -58,5 +58,7 @@ Documentation Here
 /
 connect to a kdb data source and compute a simple vwap for a symbol
 \
-h:hopen`:host_name:port
-getMinuteVwap:{  :30#h"select vwap: size wavg price, avg_px:max price by time.minute from trade where sym=`2823.HK";  }
+h:hopen`:hkuvleqarb1.jpn.nsroot.net:46011
+getMinuteVwap:{  :30#h"select vwap: size wavg price, avg_px:max price by time.minute from trade where sym=`DBSM.SI";  }
+
+getSymVol:{  :10#h"select vol: sum size by sym from trade";  }
