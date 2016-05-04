@@ -36,7 +36,7 @@
 			</div>
 		</nav>
 		
-		<div class="container" ng-controller="plotterCtrl">
+		<div class="container" ng-controller="pieChartCtrl">
 			<div class="row">
 				<div class="col-md-4">
 					<input class="form-control" ng-model="serice" name ="service" type="text" placeholder="Service (w/ instance)">
@@ -47,12 +47,29 @@
 				<button type="submit" class="btn btn-success col-md-1" id="submit" ng-click="submit()">Submit</button>
 			</div>
 			<br/>
+			<div class="row" style="width:500px">
+				<canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" >
+				</canvas> 
+			</div>
+		</div>
+
+ 		<div class="container" ng-controller="lineChartCtrl" >
 			<div class="row">
-				<div><table class="table table-bordered table-striped" id="tbl"></div>   
-				<canvas id="line_chart" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick" >
+				<div class="col-md-4">
+					<input class="form-control" ng-model="serice" name ="service" type="text" placeholder="Service (w/ instance)">
+				</div>
+				<div class="col-md-2">
+					<input class="form-control" ng-model="symbol" name="symbol" type="text" placeholder="Symbol">
+				</div>
+				<button type="submit" class="btn btn-success col-md-1" id="submit" ng-click="submit()">Submit</button>
+			</div>
+			<br/>
+			<div class="row" style="width:1000px;height: 10px">
+				<canvas id="line_chart" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-click="onClick" >
 			 	</canvas>
 			</div>
 		</div>
+
     </body>
 
 </html>
